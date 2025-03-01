@@ -31,7 +31,8 @@ const generationConfig = {
   topP: 0.95,
   topK: 40,
   maxOutputTokens: 512,
-  responseMimeType: "application/json",
+  responseMimeType: "text/plain",
+
 
 };
 
@@ -63,10 +64,6 @@ app.post("/api/chat", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`🎯 Student Chatbot Server running on http://localhost:${PORT}`);
 });
-app.use(cors({
-    origin: "*", // Allow all origins
-    methods: ["POST", "GET"],
-    credentials: true
-  }));
+
   
 

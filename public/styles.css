@@ -221,3 +221,22 @@ body {
         margin-bottom: 20px;
     }
 }
+@media (max-width: 768px) {
+    .chat-container, .notes-container {
+        width: 100%; 
+        height: 70vh; 
+    }
+  
+    .chat-header, .notes-header {
+        font-size: 18px; 
+    }
+  
+    #send-button, #save-notes {
+        padding: 8px 12px; 
+    }
+  
+    .chat-messages, .notes-content {
+        padding: 10px; 
+    }
+  }
+  
