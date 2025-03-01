@@ -31,7 +31,8 @@ const generationConfig = {
   topP: 0.95,
   topK: 40,
   maxOutputTokens: 512,
-  responseMimeType: "text/plain",
+  responseMimeType: "application/json",
+
 };
 
 // Chat API endpoint
@@ -62,3 +63,4 @@ app.post("/api/chat", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`🎯 Student Chatbot Server running on http://localhost:${PORT}`);
 });
+
