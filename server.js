@@ -63,4 +63,10 @@ app.post("/api/chat", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`🎯 Student Chatbot Server running on http://localhost:${PORT}`);
 });
+app.use(cors({
+    origin: "*", // Allow all origins
+    methods: ["POST", "GET"],
+    credentials: true
+  }));
+  
 
