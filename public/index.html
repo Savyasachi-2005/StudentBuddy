@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Chatbot</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Add jsPDF for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>Student Chatbot</h1>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message bot-message">
+                <div class="message-content">
+                    Hello! I'm your student assistant. How can I help you today?
+                    Before that can you tell your name and branch so it will easy to interact
+                </div>
+            </div>
+        </div>
+        <div class="chat-input-container">
+            <input type="text" id="user-input" placeholder="Type your message here...">
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+
+    <div class="notes-container">
+        <div class="notes-header">
+            <h1>Notes</h1>
+        </div>
+        <div class="notes-content" id="notes-content">
+            <!-- Notes will appear here -->
+        </div>
+        <div class="notes-input-container">
+            <input type="text" id="notes-input" placeholder="Add a note...">
+            <button id="save-notes">Save</button>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
