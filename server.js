@@ -12,7 +12,6 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Use your existing API key 
-
 const genAI = new GoogleGenerativeAI(apiKey);
 
 // Middleware
@@ -32,8 +31,6 @@ const generationConfig = {
   topK: 40,
   maxOutputTokens: 512,
   responseMimeType: "text/plain",
-
-
 };
 
 // Chat API endpoint
@@ -52,11 +49,33 @@ app.post("/api/chat", async (req, res) => {
       generationConfig,
     });
 
+    // Improved error handling
+    if (!result || !result.response) {
+      throw new Error("Invalid API Response: No response from Gemini AI.");
+    }
+
     const botResponse = result.response.text();
+
+    if (!botResponse) {
+      throw new Error("Empty response received from Gemini AI.");
+    }
+
     res.json({ reply: botResponse });
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ error: "Failed to generate response", details: error.message });
+    console.error("Error occurred:", error);
+
+    // Categorizing errors
+    if (error.message.includes("Invalid API Key")) {
+      return res.status(403).json({ error: "Invalid API Key. Check your API key." });
+    } else if (error.message.includes("quota")) {
+      return res.status(429).json({ error: "Quota limit reached. Upgrade your API plan or try later." });
+    } else if (error.message.includes("network")) {
+      return res.status(500).json({ error: "Network error. Please check your internet connection or API status." });
+    } else if (error.message.includes("Empty response")) {
+      return res.status(500).json({ error: "AI model returned an empty response. Try rephrasing your question." });
+    } else {
+      return res.status(500).json({ error: "Failed to generate response", details: error.message });
+    }
   }
 });
 
@@ -64,6 +83,3 @@ app.post("/api/chat", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`🎯 Student Chatbot Server running on http://localhost:${PORT}`);
 });
-
-  
-
