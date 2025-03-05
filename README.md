@@ -91,7 +91,7 @@ Your chatbot will be live at:
 ---
 
 ## 🔗 Live Demo
-👉 Coming Soon... 🌐
+👉 https://student-buddy-gules.vercel.app/
 
 ---
 
