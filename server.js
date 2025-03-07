@@ -7,6 +7,10 @@ const express = require("express");
 const path = require("path");
 const cors = require("cors"); // Adding CORS
 
+// Required for removing markup
+const striptags = require("striptags");
+const removeMarkdown = require("remove-markdown");
+
 // Setup Express server
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -54,11 +58,18 @@ app.post("/api/chat", async (req, res) => {
       throw new Error("Invalid API Response: No response from Gemini AI.");
     }
 
-    const botResponse = result.response.text();
+    let botResponse = result.response.candidates[0]?.content?.parts[0]?.text || "Sorry, I couldn’t generate a response.";
 
     if (!botResponse) {
       throw new Error("Empty response received from Gemini AI.");
     }
+
+    // Remove any markup before sending response
+     botResponse = striptags(botResponse, ["br", "p"])  // Keep paragraph & line breaks
+                      .replace(/\n{2,}/g, "\n")  // Remove excessive new lines
+                      .trim();
+
+    botResponse = removeMarkdown(botResponse); // Remove markdown but keep AI response format
 
     res.json({ reply: botResponse });
   } catch (error) {
